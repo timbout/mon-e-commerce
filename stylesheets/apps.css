@@ -1,0 +1,49 @@
+
+html{
+}
+
+header{
+    background: grey;
+    color: black;
+    height: 100%;
+}
+header div{
+    border: 3px solid #73AD21;
+    overflow: auto;
+}
+
+
+body{
+    background: url(../imageprojet/fond.jpg);
+    margin: 0;
+    color: white;
+}
+
+nav {
+    float: left;
+    margin-right: 15px;
+    overflow: left;
+}
+
+.simple-buton{
+    color: blue;
+    background: green;
+    float: left;
+}
+
+.liste-selecteur{
+    background: red;
+    float: left;
+}
+
+
+.logo{
+    width: 400px;
+    height : 200px;
+    overflow: hidden;
+    background-image: url(../imageprojet/logo-detoure.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    float: left;
+}
+
