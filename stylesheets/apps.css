@@ -1,49 +1,73 @@
-
 html{
+    background : url(../imageprojet/fond.jpg);
 }
 
 header{
-    background: grey;
-    color: black;
-    height: 100%;
+    background: url(../imageprojet/font-head.jpg);
 }
-header div{
-    border: 3px solid #73AD21;
+
+
+nav {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+section{
+    background: black;
+    width: 90%;
+    height: 400px;
+    overflow: both;
+    margin-left:30px;
+    margin-right:30px;
+    margin-top: 30px;
+    color: white;
+    border-radius: 30px;
+}
+
+.bandeau-head{
+    background: url(../imageprojet/fond-head.jpg);
     overflow: auto;
 }
 
-
-body{
-    background: url(../imageprojet/fond.jpg);
-    margin: 0;
-    color: white;
-}
-
-nav {
-    float: left;
-    margin-right: 15px;
-    overflow: left;
-}
-
-.simple-buton{
-    color: blue;
-    background: green;
-    float: left;
-}
-
-.liste-selecteur{
-    background: red;
-    float: left;
-}
-
-
 .logo{
-    width: 400px;
-    height : 200px;
-    overflow: hidden;
     background-image: url(../imageprojet/logo-detoure.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 40px;
+    width: 150px;
+}
+
+
+
+.visuel{
+    background-image: url(../imageprojet/logo.jpg);
+}
+
+
+.texte{
+   
+    color: white;
+    background-color: rgba(0,0,204, 0.3);
     background-repeat: no-repeat;
     background-size: contain;
-    float: left;
+    overflow: auto;
+    clear: both;
+    margin: 15px;
 }
+
+
+.bouton-compte{
+    color: black;
+    background: white;
+    float: right;
+}
+
+
+.bouton-panier{
+    color: black;
+    background: white;
+    float: right;
+}
+
+
 
