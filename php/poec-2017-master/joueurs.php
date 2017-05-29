@@ -1,6 +1,6 @@
 <?php
 include 'includes/util.inc.php';
-include_Once 'includes/equipe.inc.php';
+include 'includes/equipe.inc.php';
 include 'includes/header.php';
 include 'includes/menu.php';
 
@@ -20,12 +20,11 @@ if (isset($ageLimit)) {
      $query = $db->prepare('SELECT * FROM joueur');
 }
 
-$query->execute(); 
+$query->execute();
 
 ?>
 
 <h1>Joueurs</h1>
-
 
 <div>
     <form>
@@ -41,54 +40,43 @@ $query->execute();
 </div>
 
 <?php
-   
-
-  $i=0;
-
-  $output =''; // j'initialise une variable vide de stockage output qui recevra les resultats
-  $i= 0;
+  $output = '<div class="equipe">';
+  $i = 0;
 
   while ($joueur = $query->fetch()) {
-    $i++;    
+    $i++;
 
-    $condition= 
-      $joueur['numero_maillot']>0 &&
-      $joueur['numero_maillot'] <1000;
+    $condition = 
+      $joueur['numero_maillot'] > 0 && 
+      $joueur['numero_maillot'] < 1000;
 
-
-      if ($condition) {
-        $output .= '<p>' . $joueur['prenom'] . ' ' . $joueur['nom']. ' '. '(' . $joueur['numero_maillot'] . ')' ; // le .= permet de ne pas ecraser les resultats precedents. 
-
-      } else {
-         $output .='<p>'.$joueur['prenom'] . ' ' .$joueur['nom'];
-      }
-
-      $team = getTeamById($joueur['equipe']);
-        if ($team == false){
-          $output .= ', SCF';
-
-        }else {
-          $output .=', equipe : '. $team['nom'];
-        }
-
-      
-      
-      $output .= ' <a class="btn-primary btn-xs" 
-      href="updatePlayer.php?id='.$joueur['id'].'"> Modifier </a>';
-
-      $output .= ' | ';
-
-      $output .= ' <a class="btn-danger btn-xs"
-      href="deletePlayer.php?id='.$joueur['id'].'"> Supprimer </a>';
-
-      $output .='</p>';
-   
+    if ($condition) {
+      $output .= '<p>' . $joueur['prenom'] . ' ' . $joueur['nom'] . ' (' . $joueur['numero_maillot'] . ')';
+    } else {
+      $output .= '<p>' . $joueur['prenom'] . ' ' . $joueur['nom'] . '';
     }
 
-    echo '<p> Nombre de résultats : ' .$i.' </p>';
-    echo '<br>';
-    echo $output;
-?>
+    $team = getTeamById($joueur['equipe']);
+    if (!$team) { // $team == false
+      $output .= ', SCF';
+    } else {
+      //$output .= ', equipe : ' . $team['nom'];
+      $output .= '<img src="'.$team['logo'].'">';
 
+    }
+
+    $output .= ' <a class="btn btn-primary btn-xs" href="updatePlayer.php?id='.$joueur['id'].'">Modifier</a>';
+
+    $output .= ' | ';
+
+    $output .= '<a class="btn btn-danger btn-xs" href="deletePlayer.php?id='.$joueur['id'].'">Supprimer</a>';
+
+    $output .= '</p>';
+   }
+
+   $output .= '</div>';
+   echo '<p>Nombre de résultats: ' . $i . '</p>';
+   echo $output;
+?>
 
 <?php include 'includes/footer.php'; ?>

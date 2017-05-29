@@ -1,72 +1,68 @@
 <?php
-//include 'includes/connexion_db.php';
-include 'includes/equipe.inc.php';
+// session_start();
 include 'includes/util.inc.php';
+include 'includes/equipe.inc.php';
 include 'includes/header.php';
 include 'includes/menu.php';
 
-if (isset($_POST['input'])) {
-    //echo 'La client a validé le formulaire';
+// var_dump($_SESSION);
 
-    // 1) connexion mais mis sur la page connexio_db.php
-    // $db = new PDO('mysql:host=localhost;dbname=formation-poec', 'root', '');
-    $db = connect();
 
-    // 2) requête
-    $query = $db-> prepare('
-        INSERT INTO equipe (nom, entraineur, couleurs) VALUES (:nom, :entraineur, :couleurs            
-        )');
 
-    // 3) execution
-    $query->execute(array(
-        ':nom' =>            $_POST['nom'],
-        ':entraineur' =>     $_POST['entraineur'],
-        ':couleurs' =>        $_POST['couleurs'],
+    //isset permet de dire si la condition est remplie.
+if (isset($_POST['input']) && isset($_FILES)) {
+
+    $extension = substr($_FILES['logo']['name'], -4);
+    $conditions = 
+        $_FILES['logo']['size']< 500000 && 
+        isFormatAllowed($extension);
+
+
+    // upload du fichier
+    if ($conditions) {
         
-    ));
+        $src = $_FILES['logo']['tmp_name'];
+        //$dest = 'img/logo/' . $_FILES['logo']['name'];
+        $dest = 'img/logo/' . rightFormat($_POST['nom']) . $extension;
 
-    header('location:joueurs.php'); // redirection vers la page joueurs
+        // déplacer le fichier de la zone temporaire vers son 
+        // emplacement "définitif" sur le serveur
+        move_uploaded_file($src, $dest);
 
-} else {
-    //echo 'La client n\'a pas validé le formulaire';
+        $team = $_POST; // copie $_POST dans $team;
+
+        // on ajoute la clé 'logo' au tableau associatif $team
+        $team['logo'] = $dest; 
+
+        if (createTeam($team)) {
+            header('location:equipes.php');
+        } else {
+            echo '<p class="text-warning">L\'enregistrement a échoué</p>';
+        }
+
+    } else {
+        echo '<p>Format non autorisé ou fichier trop lourd</p>';
+    }
 }
-
-// chargement des équipes
-
 
 ?>
 
-<h1>Enregistrer une équipe</h1>
+<?php
+// if (isset($_SESSION['logged'])){
 
-<div class ="containeur">
-
-    <form method="POST">
-
-        <div class="row">
-            <div class= "col-md-3">
-                <label>Nom</label>
-                <input type="text" name="nom">
-            </div>
-
-            <div class= "col-md-3">
-                <label>entraineur</label>
-                <input type="text" name="entraineur">
-            </div>
-            <div class= "col-md-3">
-                <label>couleurs</label>
-                <input type="text" name="couleurs">
-            </div>
-        </div>
-
-        <br>
-
+if (isset($_SESSION['user'])){
+    if ($_SESSION['user']['role']== 'admin') {
         
-        <div class="row">
-            <div class= "col-md-12"> 
-                <input type="submit" name="input" value="Enregistrer">
-            </div>
-        
-    </form>
-</div>
+    }else{
+        echop('Droits insuffisant');
+
+    }
+
+    include 'includes/forms/addteam.inc.php';
+}else{
+    echop('Vous devez etre connecté pour accéder à cette ressource');
+}
+?>
+
 
 <?php include 'includes/footer.php'; ?>

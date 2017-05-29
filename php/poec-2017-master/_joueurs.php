@@ -53,7 +53,12 @@ $query->execute(); // execute() renvoie vrai si réussite
     </form>
 </div>
 
-<p>Nombre de resultats : </p>
+<?php
+  // variable compteur
+  $i = 0;
+?>
+
+<p>Nombre de résultats : <?php echo $i ?></p>
 
 <?php
    //foreach ($joueurs as $joueur) {
@@ -64,40 +69,36 @@ $query->execute(); // execute() renvoie vrai si réussite
    // la prochaine ligne (row) sql non traitée
    // les lignes sql déjà traitées (fetched) sont retirées de l'objet $query
    // fetch() renvoie false quand toutes les lignes sql ont été traitées
-   
+  
 
-  $i=0;// variable pour le compteur
+
   while ($joueur = $query->fetch()) {
-    
-      $i++ ; //incrementation du compteur:
+
+    $i++; // incrémentation du compteur
 
     // à chaque itération la variable $joueur reçoit le résultat de fetch()
     // c'est-à-dire un tableau associatif contenant les données du joueur
 
-    $condition= 
-      $joueur['numero_maillot']>0 &&
-      $joueur['numero_maillot'] <1000;
+    $condition = 
+      $joueur['numero_maillot'] > 0 && 
+      $joueur['numero_maillot'] < 1000;
 
-
-      if ($condition) {
-        echo '<p>' . $joueur['prenom'] . ' ' . $joueur['nom']. ' '. '(' . $joueur['numero_maillot'] . ')' ;
-      } else {
-         echo'<p>'.$joueur['prenom'] . ' ' .$joueur['nom'];
-      }
-
-      echo '<a class="btn-primary btn-xs" 
-      href="updatePlayer.php?id='.$joueur['id'].'"> Modifier </a>';
-
-      echo ' | ';
-
-      echo '<a class="btn-danger btn-xs"
-      href="deletePlayer.php?id='.$joueur['id'].'"> Supprimer </a>';
-
-      echo'</p>';
-   
-
+    if ($condition) {
+      echo '<p>' . $joueur['prenom'] . ' ' . $joueur['nom'] . ' (' . $joueur['numero_maillot'] . ')';
+    } else {
+      echo '<p>' . $joueur['prenom'] . ' ' . $joueur['nom'] . '';
     }
-    echo $i;
+
+    echo ' <a class="btn btn-primary btn-xs" href="updatePlayer.php?id='.$joueur['id'].'">Modifier</a>';
+
+    echo ' | ';
+
+    echo '<a class="btn btn-danger btn-xs" href="deletePlayer.php?id='.$joueur['id'].'">Supprimer</a>';
+
+    echo '</p>';
+   }
+
+   echo $i;
 ?>
 
 

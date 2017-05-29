@@ -2,10 +2,9 @@
 
 // 1) connexion
 
-function connect(){
+function connect() {
     $db = new PDO('mysql:host=localhost;dbname=formation-poec', 'root', '');
     return $db;
 }
-
 
 ?>

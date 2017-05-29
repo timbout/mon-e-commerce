@@ -1,30 +1,23 @@
 <?php
-include 'includes/connexion_db.php'; // fournit la fonction de connection (connect)
+include 'includes/connexion_db.php'; // fournit connect();
 
-// recuperation de l'id du joueur
+// récupération de l'id du joueur
 if (isset($_GET['id'])) {
-    $id= $_GET['id'];
+    $id = $_GET['id'];
 
-    // etape 1: connection
-    $db=connect();
+    // 1) connexion
+    $db = connect();
 
-    // etape 2 : requete
-    $query = $db->prepare('DELETE FROM joueur WHERE id= :id'); // attention de bien mettre where sinon ca va supprimer tous les Joueurs !!!!
+    // 2) requête
+    $query = $db->prepare('DELETE FROM joueur WHERE id = :id');
 
-    // 3eme etape: l'execution:
+    // 3) exécution
     $query->execute(array(
-        ':id'=> $id
+        ':id' => $id
     ));
 
-    // rediriger vers la page joueurs:
-
+    // redirection vers liste joueurs
     header('location:joueurs.php');
-  
 }
 
-
-
 ?>
-
-
-<?php
