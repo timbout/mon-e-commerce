@@ -1,3 +1,8 @@
 table.equipe img, div.equipe img {
     height: 40px;
 }
+
+/*permet de faire apparaitre une main*/
+#ageHeader:hover {
+    cursor: pointer;
+}

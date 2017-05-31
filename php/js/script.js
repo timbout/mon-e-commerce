@@ -39,7 +39,7 @@ function emptyList(){
 
 function getData(){
     console.log('requete Ajax');
-    var url = 'http://localhost/projet/Projet%20e%20commerce/php/poec-2017-master/ajax.php';
+    var url = 'http://localhost/projet/Projet-ecommerce/php/ajax.php';
     var req = new XMLHttpRequest(); // req va recevoir les fonctionnalités implementé dans javascript (ajax)
     req.open('GET', url, false);
     req.send(null); // aucune donnee à renvoyer en base
