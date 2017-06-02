@@ -3,6 +3,19 @@ table.equipe img, div.equipe img {
 }
 
 /*permet de faire apparaitre une main*/
-#ageHeader:hover {
+#ageHeader:hover, #nomHeader:hover {
     cursor: pointer;
+}
+
+.oldest{
+    color: orange;
+    front-weight : bold;
+}
+
+#formPlayer{
+    display: none;
+}
+
+#message {
+    padding: 10px;
 }

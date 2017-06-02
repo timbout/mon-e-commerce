@@ -27,7 +27,6 @@ if (isset($_POST['input'])) {
 
     // redirection
     header('location:joueurs.php');
-
 } else {
     //echo 'La client n\'a pas validé le formulaire';
 }
